@@ -1,0 +1,1 @@
+A high performance Sudoku-Solver written in Javascript.
