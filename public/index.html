@@ -1,30 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark" id="dark">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
-      name="description"
-      content="Web site created using create-react-app"
+      name="Sudoku-Solver"
+      content="A highly efficient sudoku solver written in JavaScript"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
     <title>React App</title>
+
+    <style>
+      * {
+        color: var(--TXT-BASE);
+        font-family: Helvetica, Arial, sans-serif;
+        font-weight: 500;
+      }
+
+      html, body {
+        width: 100vw;
+        height: 100dvh;
+        
+        background-color: hsl(var(--BG-BACKGROUND));
+        margin: 0;
+        overflow-x: hidden;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+          monospace;
+      }
+    </style>
+
+  <script>
+    globalThis.themes = {light:["light","purple","pink"], dark:["dark","green"]};
+    let allThemes = [...globalThis.themes.light,...globalThis.themes.dark];
+    if (window.localStorage && window.localStorage.getItem("COLOR_PREF")) {
+        let chosenTheme = allThemes[+window.localStorage.getItem("COLOR_PREF")];
+        let isLightMode = globalThis.themes.dark.find(e=>e===chosenTheme) === undefined;
+        document.documentElement.className = isLightMode ? "light" : "dark";
+        document.documentElement.id = chosenTheme;
+    } else if (window.matchMedia) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.className = "dark";
+            document.documentElement.id = globalThis.themes.dark[0];
+        } else {
+          document.documentElement.className = "light";
+          document.documentElement.id = globalThis.themes.light[0];
+        }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+          document.documentElement.className =  event.matches ? "dark" : "light";
+          document.documentElement.id = event.matches ? globalThis.themes.dark[0] : globalThis.themes.light[0];
+        });
+    }
+  </script>
+
+    <link rel="stylesheet" href="Theme.css">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

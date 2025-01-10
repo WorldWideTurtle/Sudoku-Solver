@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useLayoutEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const THEMES = {
@@ -33,8 +33,8 @@ type ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType>({
     theme: {
-        type: "light",
-        sub: "light"
+        type: "dark",
+        sub: "dark"
     },
     setThemeAndStore: () => {}
 });
@@ -49,47 +49,26 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children } : {children : ReactNode}) => {
     const [theme, setTheme] = useState<Theme>({
-        type: "light",
-        sub: "light"
+        type: "dark",
+        sub: "dark"
     });
 
-    const {setValue, getValue} = useLocalStorage<string>(LOCAL_STORAGE_COLOR_PREF_KEY);
+    const {setValue} = useLocalStorage<string>(LOCAL_STORAGE_COLOR_PREF_KEY);
 
     const setThemeAndStore = (theme: Theme) => {
-        setTheme(theme);
+        document.documentElement.className = theme.type;
+        document.documentElement.id = theme.sub;
         setValue(ALL_THEMES.indexOf(theme.sub).toString());
     };
 
-    useEffect(() => {
-        let onMediaChangeHandler = (event : MediaQueryListEvent) => {
-            const isLightMode = !event.matches;
-            if (isLightMode) {
-                setTheme({type:"light",sub:THEMES.light[0]})
-            } else {
-                setTheme({type:"dark",sub:THEMES.dark[0]})
-            }
-        };
-
-        if (getValue() !== null) {
-            const chosenTheme = ALL_THEMES[+getValue()!];
-            const isLightMode = THEMES.dark.find(e=>e===chosenTheme) === undefined;
-            if (isLightMode) {
-                setTheme({type:"light",sub:chosenTheme as LightTheme})
-            } else {
-                setTheme({type:"dark",sub:chosenTheme as DarkTheme})
-            }
-        } else if (window.matchMedia) {
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                setTheme({type:"dark",sub:THEMES.dark[0]})
-            }
-
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onMediaChangeHandler);
+    useLayoutEffect(() => {
+        const themeType = document.documentElement.className;
+        if (themeType === "dark") {
+            setTheme({type: "dark", sub: document.documentElement.id as DarkTheme});
+        } else if (themeType === "light") {
+            setTheme({type: "light", sub: document.documentElement.id as LightTheme});
         }
-
-        return () => {
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', onMediaChangeHandler);
-        }
-    }, [getValue]);
+    }, []);
 
     return (
         <ThemeContext.Provider value={{ theme, setThemeAndStore }}>
