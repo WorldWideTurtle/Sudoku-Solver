@@ -8,14 +8,17 @@ module.exports = {
   darkMode: 'selector',
   theme: {
     extend: {
+      borderWidth: {
+         "1": "1px"
+      },
       colors: {
         background: 'hsl(var(--BG-PRIMARY))',
-        foreground: 'hsl(var(--BG-FOREGROUND))',
+        muted: 'hsl(var(--BG-FOREGROUND))',
         popover: 'hsl(var(--BG-POPOVER))',
-        accent: 'hsl(var(--TEXT-ACCENT))'
+        foreground: 'hsl(var(--TEXT-BASE))',
+        accent: 'hsl(var(--TEXT-ACCENT))',
       },
       textColor: {
-        primary: 'hsl(var(--TEXT-BASE))',
         solved: 'hsl(var(--TEXT-SOLVED))',
         unsolved: 'hsl(var(--TEXT-UNSOLVED))',
         code: {
@@ -29,21 +32,16 @@ module.exports = {
           comment: 'hsl(var(--CODE-COMMENT))',
         }
       },
-      fill: {
-        primary: 'hsl(var(--TEXT-BASE))',
-      },
     },
   },
   plugins: [
     plugin(({addVariant}) => {
       const THEMES = {
         light: [
-            "light",
             "purple",
             "pink"
         ],
         dark: [
-            "dark",
             "green"
         ]
       }
