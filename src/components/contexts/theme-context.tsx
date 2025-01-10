@@ -47,28 +47,28 @@ export const useTheme = () => {
     return context;
 };
 
+function getCurrentTheme() : Theme {
+    const themeType = document.documentElement.className;
+    if (themeType === "dark") {
+        return {type: "dark", sub: document.documentElement.id as DarkTheme};
+    } else if (themeType === "light") {
+        return {type: "light", sub: document.documentElement.id as LightTheme};
+    }
+
+    return {type: "dark", sub: "dark"};
+}
+
 export const ThemeProvider = ({ children } : {children : ReactNode}) => {
-    const [theme, setTheme] = useState<Theme>({
-        type: "dark",
-        sub: "dark"
-    });
+    const [theme, setTheme] = useState<Theme>(getCurrentTheme());
 
     const {setValue} = useLocalStorage<string>(LOCAL_STORAGE_COLOR_PREF_KEY);
 
     const setThemeAndStore = (theme: Theme) => {
         document.documentElement.className = theme.type;
         document.documentElement.id = theme.sub;
+        setTheme(theme);
         setValue(ALL_THEMES.indexOf(theme.sub).toString());
     };
-
-    useLayoutEffect(() => {
-        const themeType = document.documentElement.className;
-        if (themeType === "dark") {
-            setTheme({type: "dark", sub: document.documentElement.id as DarkTheme});
-        } else if (themeType === "light") {
-            setTheme({type: "light", sub: document.documentElement.id as LightTheme});
-        }
-    }, []);
 
     return (
         <ThemeContext.Provider value={{ theme, setThemeAndStore }}>

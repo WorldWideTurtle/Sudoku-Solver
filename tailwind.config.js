@@ -11,11 +11,11 @@ module.exports = {
       colors: {
         background: 'hsl(var(--BG-PRIMARY))',
         foreground: 'hsl(var(--BG-FOREGROUND))',
-        popover: 'hsl(var(--BG-POPOVER))'
+        popover: 'hsl(var(--BG-POPOVER))',
+        accent: 'hsl(var(--TEXT-ACCENT))'
       },
       textColor: {
-        base: 'hsl(var(--TEXT-BASE))',
-        accent: 'hsl(var(--TEXT-ACCENT))',
+        primary: 'hsl(var(--TEXT-BASE))',
         solved: 'hsl(var(--TEXT-SOLVED))',
         unsolved: 'hsl(var(--TEXT-UNSOLVED))',
         code: {
@@ -28,7 +28,10 @@ module.exports = {
           action: 'hsl(var(--CODE-ACTION))',
           comment: 'hsl(var(--CODE-COMMENT))',
         }
-      }
+      },
+      fill: {
+        primary: 'hsl(var(--TEXT-BASE))',
+      },
     },
   },
   plugins: [
