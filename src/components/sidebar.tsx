@@ -55,9 +55,9 @@ function SideBarLinks() {
     return (
         <List>
             {LINKS.map(e=>(typeof e[1] === 'string') ? 
-                <ListItem><Link to={e[0]} className='w-full h-full inline-block p-1 font-bold'>{e[1]}</Link></ListItem> :
-                <ListGroup label={e[0][1]}>
-                    {e.slice(1).map(inner=><ListItem><Link to={e[0][0] + inner[0]} className='w-full h-full inline-block p-1 font-bold'>{inner[1]}</Link></ListItem>)}
+                <ListItem key={e[0]}><Link to={e[0]} className='w-full h-full inline-block p-1 font-bold'>{e[1]}</Link></ListItem> :
+                <ListGroup key={e[0][0]} label={e[0][1]}>
+                    {e.slice(1).map(inner=><ListItem key={e[0][0] + inner[0]}><Link to={e[0][0] + inner[0]} className='w-full h-full inline-block p-1 font-bold'>{inner[1]}</Link></ListItem>)}
                 </ListGroup>
             )}
         </List>
