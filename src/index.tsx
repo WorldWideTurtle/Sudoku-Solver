@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './components/contexts/theme-context';
+import { BrowserRouter } from "react-router-dom";
+import { Sidebar } from './components/sidebar';
+import { Footer } from './components/Footer';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <BrowserRouter>
+        <Sidebar />
+        <App />
+        <Footer />
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );

@@ -1,10 +1,13 @@
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { Solver } from './components/pages/solver';
 
 function App() {
   return (
-    <main>
-      
-    </main>
+    <>
+      <Routes>
+         <Route path='/' element={<Solver/>} />
+       </Routes>
+    </>
   );
 }
 
