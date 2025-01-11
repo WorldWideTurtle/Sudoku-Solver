@@ -10,6 +10,7 @@ export type GridEventData = {
     }
 }
 
+// eslint-disable-next-line no-restricted-globals
 self.onmessage = (event : GridEventData) =>{    
     if (event.data.partial === true) {
         event.data.grids.forEach(element => {
