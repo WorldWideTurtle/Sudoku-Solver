@@ -9,6 +9,7 @@ import {ReactComponent as ListIcon} from '../icons/list.svg'
 import {ReactComponent as RestartIcon} from '../icons/restart.svg'
 import { ReactNode } from "react";
 import classNames from "classnames";
+import { baseBoard, manager } from "../../lib/sudoku/manager";
 
 
 function generateTestData() {
@@ -29,15 +30,18 @@ export function Solver() {
 }
 
 function GridDisplay() {
+    manager.loadGrid(baseBoard);
+    manager.solve(true);
+
     return (
         <div className="flex gap-2 justify-center">
             <div className="flex flex-col items-center gap-1">
                 <h2 className="text-2xl font-bold">Sudoku</h2>
-                <SudokuGrid data={generateTestData()} />
+                <SudokuGrid data={manager.sudokuGrid.getRowArray()} />
             </div>
             <div className="flex-col items-center gap-1 hidden md:flex">
                 <h2 className="text-2xl font-bold">Entropy</h2>
-                <SudokuGrid data={generateTestData()} />
+                <SudokuGrid data={manager.sudokuGrid.getRowArray()} />
             </div>
         </div>
     )
