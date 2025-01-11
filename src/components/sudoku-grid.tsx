@@ -1,4 +1,4 @@
-export function SudokuGrid({data} : {data?: Uint8Array[][]}) {
+export function SudokuGrid({data} : {data?: Uint8Array[]}) {
     if (data === undefined) {
         return null;
     }

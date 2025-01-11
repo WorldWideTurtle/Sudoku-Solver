@@ -66,7 +66,7 @@ export class nGrid {
         this.guesses = 0;
     }
 
-    splitArray(arr: Uint8Array,size: number) : Uint8Array[][] {
+    splitArray(arr: Uint8Array,size: number) : Uint8Array[] {
         let res = new Array(arr.length/size);
         for (let i = 0; i < arr.length; i+=size) {
             let newArr = new Uint8Array(size);
@@ -118,8 +118,20 @@ export class nGrid {
 
     getValueAtIndex = (index : number) => this.rowState[index];
 
+    checkSolvedCondition(set: Uint16Array) {
+        return (Array.from(set).reduce((acc,cur)=>acc & cur, 0x1FF) === 0x1FF)
+    }
+
+    isSolved() {
+        return (
+            this.checkSolvedCondition(this.activeRowSet) 
+            && this.checkSolvedCondition(this.activeColumnSet) 
+            && this.checkSolvedCondition(this.activeSquareSet)
+        );
+    }
+
     totalEntropy() {
-        let arr = []
+        let arr: Uint8Array[]  = []
         for (let row = 0; row < 9; row++) {
             let rowArray = new Uint8Array(9);
             for (let column = 0; column < 9; column++) {

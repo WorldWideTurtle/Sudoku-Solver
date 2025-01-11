@@ -7,14 +7,10 @@ import {ReactComponent as DownloadIcon} from '../icons/download.svg'
 import {ReactComponent as UploadIcon} from '../icons/upload.svg'
 import {ReactComponent as ListIcon} from '../icons/list.svg'
 import {ReactComponent as RestartIcon} from '../icons/restart.svg'
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
-import { baseBoard, manager } from "../../lib/sudoku/manager";
-
-
-function generateTestData() {
-    return new Array(9).fill(0).map(e=>new Array(9).fill(0).map(i=>~~(Math.random() * 9 + 0.999)))
-}
+import { SolveData, useSolverZustand } from "../zustand/useSolver";
+import { useShallow } from 'zustand/react/shallow'
 
 export function Solver() {
     return (
@@ -30,33 +26,34 @@ export function Solver() {
 }
 
 function GridDisplay() {
-    manager.loadGrid(baseBoard);
-    manager.solve(true);
+    const [grid] = useSolverZustand(useShallow((state)=>[state.grid,state.update]))
 
     return (
         <div className="flex gap-2 justify-center">
             <div className="flex flex-col items-center gap-1">
                 <h2 className="text-2xl font-bold">Sudoku</h2>
-                <SudokuGrid data={manager.sudokuGrid.getRowArray()} />
+                <SudokuGrid data={grid.getRowArray()} />
             </div>
             <div className="flex-col items-center gap-1 hidden md:flex">
                 <h2 className="text-2xl font-bold">Entropy</h2>
-                <SudokuGrid data={manager.sudokuGrid.getRowArray()} />
+                <SudokuGrid data={grid.totalEntropy()} />
             </div>
         </div>
     )
 }
 
 function ButtonBar() {
+    const [undo, solve, reset] = useSolverZustand(useShallow((state)=>[state.undo,state.solve,state.reset]))
+
     return (
         <div className="flex gap-4 w-full justify-center">
             <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
-                <Button><PlayIcon className="rotate-180"></PlayIcon></Button>
-                <Button><PlayIcon></PlayIcon></Button>
-                <Button><FastForwardIcon></FastForwardIcon></Button>
+                <Button onClick={undo}><PlayIcon className="rotate-180"></PlayIcon></Button>
+                <Button onClick={()=>{solve(false)}}><PlayIcon></PlayIcon></Button>
+                <Button onClick={()=>{solve(true)}}><FastForwardIcon></FastForwardIcon></Button>
             </div>
             <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
-                <Button><RestartIcon></RestartIcon></Button>
+                <Button onClick={reset}><RestartIcon></RestartIcon></Button>
             </div>
             <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
                 <Button><DownloadIcon></DownloadIcon></Button>
@@ -69,27 +66,57 @@ function ButtonBar() {
     )
 }
 
-function Button({children}:{children? : ReactNode}) {
+function Button({children, onClick}:{children? : ReactNode, onClick?:()=>void}) {
     return (
-        <button className="hover:*:fill-accent *:transition-[fill] *:duration-100 *:fill-foreground">{children}</button>
+        <button onClick={onClick} className="hover:*:fill-accent *:transition-[fill] *:duration-100 *:fill-foreground">{children}</button>
     )
 }
 
 function ResultsDisplay() {
+    const [state,getSolveData, update] = useSolverZustand(useShallow((state)=>[state.state,state.getSolveData, state.update]))
+    const [solveData, setSolveData] = useState<SolveData>()
+
+    useEffect(()=>{
+        if (state.type === undefined) {
+            setSolveData(undefined)
+        } else {
+            setSolveData(getSolveData())
+        }
+    }, [update])
+
+    const formatTimeValue = () => {
+        if (state.current === "solved" && state.type === "full") {
+            let time = solveData?.time ?? 0
+            if (time === 0) return "<1.00";
+            if (time === 1) return "~1.00";
+
+            return time.toFixed(2)
+        }
+
+        return "..."
+    }
+
     return (
-        <div className="grid grid-cols-4 grid-rows-1 md:grid-rows-2 gap-2 w-full mt-2">
-            <ResultEntry dataKey="Time taken (ms)" dataValue="" className="col-span-2"/>
-            <ResultEntry dataKey="Itterations" dataValue="" className="col-span-2"/>
-            <ResultEntry dataKey="Singles" dataValue="" className="hidden md:flex"/>
-            <ResultEntry dataKey="Hiddens" dataValue="" className="hidden md:flex"/>
-            <ResultEntry dataKey="Guesses" dataValue="" className="hidden md:flex"/>
-            <ResultEntry dataKey="Backtracks" dataValue="" className="hidden md:flex"/>
+        <div className="grid grid-cols-4 grid-rows-1 md:grid-rows-2 gap-2 w-full mt-2 relative">
+            {
+                state.type === undefined 
+                ?   <div className="absolute -inset-1 z-40 backdrop-blur-[2px] bg-background/5 grid place-items-center">
+                        <h3 className="text-xl font-bold flex items-center gap-1">Run <FastForwardIcon className="fill-foreground" /> once for results</h3>
+                    </div> 
+                :   null
+            }
+            <ResultEntry dataKey="Time taken (ms)" dataValue={formatTimeValue()} className="col-span-2"/>
+            <ResultEntry dataKey="Itterations" dataValue={solveData?.itterations.toString()} className="col-span-2"/>
+            <ResultEntry dataKey="Singles" dataValue={solveData?.singles.toString()} className="hidden md:flex"/>
+            <ResultEntry dataKey="Hiddens" dataValue={solveData?.hiddens.toString()} className="hidden md:flex"/>
+            <ResultEntry dataKey="Guesses" dataValue={solveData?.guesses.toString()} className="hidden md:flex"/>
+            <ResultEntry dataKey="Backtracks" dataValue={solveData?.backtracks.toString()} className="hidden md:flex"/>
         </div>
     )
 }
 
-function ResultEntry({dataKey,dataValue,className} : {dataKey: string, dataValue: string, className?: string}) {
+function ResultEntry({dataKey,dataValue,className} : {dataKey: string, dataValue?: string, className?: string}) {
     return (
-        <div className={classNames("bg-popover p-2 rounded-md flex gap-1 justify-between text-base shadow-sm shadow-foreground dark:shadow-none *:min-w-[6ch] *:inline-block",className)}><span>{dataKey}</span><span>{dataValue}</span></div>
+        <div className={classNames("bg-popover p-2 rounded-md flex gap-1 justify-between shadow-sm shadow-foreground dark:shadow-none *:min-w-[6ch] *:inline-block",className)}><span>{dataKey}</span><span className="text-accent text-right">{dataValue}</span></div>
     )
 }
