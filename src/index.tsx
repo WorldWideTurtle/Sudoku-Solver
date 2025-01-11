@@ -16,7 +16,9 @@ root.render(
     <ThemeProvider>
       <BrowserRouter>
         <Sidebar />
-        <App />
+        <main className='w-full flex-1 flex flex-col'>
+          <App />
+        </main>
         <Footer />
       </BrowserRouter>
     </ThemeProvider>
