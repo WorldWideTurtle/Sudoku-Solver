@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {ReactComponent as ChevronRightIcon} from './icons/chevron-right.svg'
 import { MatrixBackground } from './matrix-background';
 import { Link } from 'react-router-dom';
 import { List, ListGroup, ListItem } from './ui/list';
+import { LINKS } from '../App';
 
 export function Sidebar() {
     const [isOpen, toggleOpen] = useState(false);
@@ -39,19 +40,13 @@ function SideBarHeading({isOpen} : {isOpen: boolean}) {
     )
 }
 
-const LINKS = [
-    ["/","Solver"],
-    ["/rules","Sudoku-Rules"],
-    [
-        ["/libraries","Implementation"],
-        ["/nGrid","nGrid"],
-        ["/nSet","nSet"],
-        ["/nArray","nArray"]
-    ]
-] as const;
-
 function SideBarLinks() {
     const loc = window.location.pathname;
+    
+    useEffect(()=>{
+        console.log(window.location.pathname)
+    }, [window.location.pathname])
+
     return (
         <List>
             {LINKS.map(e=>(typeof e[1] === 'string') ? 
