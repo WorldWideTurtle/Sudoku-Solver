@@ -29,7 +29,10 @@ export function CodeBlock({language, lines, output} : {language: string, lines: 
             </div>
             <div className="mt-2 code">
                 {lines.map((e,i)=>(
-                    <div key={i} style={{marginLeft: (e.indentation || 0) + "rem"}}><span dangerouslySetInnerHTML={{__html: formatCodeLine(e)}}></span></div>
+                    <div key={i} className="flex gap-4">
+                        <div className="select-none opacity-70 font-light text-right">{i + 1}</div>
+                        <div style={{marginLeft: (e.indentation || 0) + "rem"}}><span dangerouslySetInnerHTML={{__html: formatCodeLine(e)}}></span></div>
+                    </div>
                 ))}
                 {output ? <><hr className="mt-2 mb-2 border-foreground/40" /><div>{"> "}<span dangerouslySetInnerHTML={{__html: formatCodeLine({text:output})}}></span></div></> : ""}
             </div>
