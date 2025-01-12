@@ -43,7 +43,7 @@ function EntropyCell({row, column, grid} : CellItemProps) {
     const size = nSet.size(entropy);
     return (
         <div className={`size-10 group grid place-items-center grid-cols-1 grid-rows-1 ${size === 0 ? "bg-solved dark:*:text-solved dark:!bg-transparent" : "bg-unsolved dark:*:text-unsolved dark:!bg-transparent"}`}>
-            {size > 0 ? <div className="group-hover:grid grid-cols-3 grid-rows-3 size-full hidden col-start-1 row-start-1">
+            {size > 0 ? <div className="group-hover:grid p-[2px] grid-cols-3 grid-rows-3 size-full hidden col-start-1 row-start-1">
                 {AllValidNumbers.map(e=><span className="text-xs font-mono" key={e}>{nSet.has(entropy,e) ? e : ""}</span>)}
             </div> : ""}
             <span className={`flex size-full items-center justify-center text-lg col-start-1 row-start-1 ${size > 0 ? "group-hover:hidden" : ""}`}>

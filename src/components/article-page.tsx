@@ -8,6 +8,7 @@ export function ArticlePage({children} : {children?: ReactNode}) {
             <h2 className="text-4xl font-bold">Sudoku Solving</h2>
             <h3 className="text-xl -mt-2 font-bold opacity-70">Binary Style</h3> 
             <hr className="border-popover mt-2 mb-2" />
+            
             {children}
         </article>
     )
