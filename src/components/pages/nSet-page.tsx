@@ -1,4 +1,4 @@
-import { ArticleHeading, ArticlePage } from "../artice-page";
+import { ArticleHeading, ArticlePage } from "../article-page";
 import { CodeBlock } from "../code-block";
 
 export function NSetPage() {

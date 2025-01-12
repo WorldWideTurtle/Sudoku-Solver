@@ -1,4 +1,4 @@
-import { ArticleHeading, ArticleLink, ArticlePage } from "../artice-page";
+import { ArticleHeading, ArticleLink, ArticlePage } from "../article-page";
 import { CodeBlock } from "../code-block";
 
 export function RulesPage() {
