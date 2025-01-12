@@ -41,18 +41,14 @@ function SideBarHeading({isOpen} : {isOpen: boolean}) {
 }
 
 function SideBarLinks() {
-    const loc = window.location.pathname;
-    
-    useEffect(()=>{
-        console.log(window.location.pathname)
-    }, [window.location.pathname])
+    const [path, setPath] = useState(window.location.pathname)
 
     return (
         <List>
             {LINKS.map(e=>(typeof e[1] === 'string') ? 
-                <ListItem key={e[0]}><Link to={e[0]} className='w-full h-full inline-block p-1 font-bold'>{e[1]}</Link></ListItem> :
+                <ListItem isActive={path === e[0]} key={e[0]}><Link onClick={()=>setPath(e[0])} to={e[0]} className='w-full h-full inline-block p-1 font-bold'>{e[1]}</Link></ListItem> :
                 <ListGroup key={e[0][0]} label={e[0][1]}>
-                    {e.slice(1).map(inner=><ListItem key={e[0][0] + inner[0]}><Link to={e[0][0] + inner[0]} className='w-full h-full inline-block p-1 font-bold'>{inner[1]}</Link></ListItem>)}
+                    {e.slice(1).map(inner=><ListItem isActive={path === e[0][0] + inner[0]} key={e[0][0] + inner[0]}><Link onClick={()=>setPath(e[0][0] + inner[0])} to={e[0][0] + inner[0]} className='w-full h-full inline-block p-1 font-bold'>{inner[1]}</Link></ListItem>)}
                 </ListGroup>
             )}
         </List>

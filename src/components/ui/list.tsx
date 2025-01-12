@@ -10,9 +10,9 @@ export function List({children, className} : {children?: React.ReactNode, classN
     );
 }
 
-export function ListItem({children, className} : {children?: React.ReactNode, className?: string}) {
+export function ListItem({children, className, isActive} : {children?: React.ReactNode, className?: string, isActive?: boolean}) {
     return (
-        <li className={classNames("w-full hover:bg-accent/30 rounded-md",className)}>
+        <li className={classNames("w-full hover:bg-accent/30 rounded-md",className,isActive ? "bg-accent/30" : "")}>
             {children}
         </li>
     );
