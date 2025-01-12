@@ -1,4 +1,4 @@
-import { SudokuGrid } from "../sudoku-grid";
+import { CellItemProps, SudokuGrid } from "../sudoku-grid";
 import {ReactComponent as BarChartIcon} from '../icons/bar-chart.svg'
 import {ReactComponent as PlayIcon} from '../icons/play.svg'
 import {ReactComponent as FastForwardIcon} from '../icons/fast-forward.svg'
@@ -11,13 +11,14 @@ import { ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
 import { SolveData, useSolverZustand } from "../zustand/useSolver";
 import { useShallow } from 'zustand/react/shallow'
+import { nSet } from "../../lib/sudoku/nSet";
 
 export function Solver() {
     return (
         <div className="size-full grid place-items-center flex-1">
             <div className="bg-muted w-fit p-4 shadow-md shadow-foreground/30 rounded-lg dark:shadow-none">
                 <GridDisplay />
-                <hr className="m-2"/>
+                <hr className="m-4"/>
                 <ButtonBar />
                 <ResultsDisplay />
             </div>
@@ -25,19 +26,56 @@ export function Solver() {
     );
 }
 
-function GridDisplay() {
-    const [grid] = useSolverZustand(useShallow((state)=>[state.grid,state.update]))
-
+function NumberCell({row, column, grid} : CellItemProps) {
+    if (grid.initialState === undefined) return null;
+    const value = grid.getValueAt(row,column);
     return (
-        <div className="flex gap-2 justify-center">
-            <div className="flex flex-col items-center gap-1">
-                <h2 className="text-2xl font-bold">Sudoku</h2>
-                <SudokuGrid data={grid.getRowArray()} />
-            </div>
-            <div className="flex-col items-center gap-1 hidden md:flex">
-                <h2 className="text-2xl font-bold">Entropy</h2>
-                <SudokuGrid data={grid.totalEntropy()} />
-            </div>
+        <span className={`flex size-10 items-center justify-center text-lg ${value !== 0 ? "bg-solved dark:text-solved dark:!bg-transparent" : "bg-unsolved dark:text-unsolved dark:!bg-transparent"}`}>
+            {value}
+        </span>
+    )
+}
+
+const AllValidNumbers = [1,2,3,4,5,6,7,8,9]
+
+function EntropyCell({row, column, grid} : CellItemProps) {
+    const entropy = grid.getEntropy(row,column);
+    const size = nSet.size(entropy);
+    return (
+        <div className={`size-10 group grid place-items-center grid-cols-1 grid-rows-1 ${size === 0 ? "bg-solved dark:*:text-solved dark:!bg-transparent" : "bg-unsolved dark:*:text-unsolved dark:!bg-transparent"}`}>
+            {size > 0 ? <div className="group-hover:grid grid-cols-3 grid-rows-3 size-full hidden col-start-1 row-start-1">
+                {AllValidNumbers.map(e=><span className="text-xs font-mono" key={e}>{nSet.has(entropy,e) ? e : ""}</span>)}
+            </div> : ""}
+            <span className={`flex size-full items-center justify-center text-lg col-start-1 row-start-1 ${size > 0 ? "group-hover:hidden" : ""}`}>
+                {size}
+            </span>
+        </div>
+    )
+}
+
+function Base() {
+    return (
+        <div className="flex flex-col items-center gap-1">
+            <h2 className="text-2xl font-bold">Sudoku</h2>
+            <SudokuGrid CellComponent={NumberCell} />
+        </div>
+    )
+}
+
+function Entropy() {
+    return (
+        <div className="flex-col items-center gap-1 hidden md:flex">
+            <h2 className="text-2xl font-bold">Entropy</h2>
+            <SudokuGrid CellComponent={EntropyCell} />
+        </div>
+    )
+}
+
+function GridDisplay() {
+    return (
+        <div className="flex gap-8 justify-center">
+            <Base />
+            <Entropy />
         </div>
     )
 }
@@ -68,7 +106,7 @@ function ButtonBar() {
 
 function Button({children, onClick}:{children? : ReactNode, onClick?:()=>void}) {
     return (
-        <button onClick={onClick} className="hover:*:fill-accent *:transition-[fill] *:duration-100 *:fill-foreground">{children}</button>
+        <button onClick={onClick} className="size-10 *:size-full hover:*:fill-accent *:transition-[fill] *:duration-100 *:fill-foreground">{children}</button>
     )
 }
 
@@ -97,7 +135,7 @@ function ResultsDisplay() {
     }
 
     return (
-        <div className="grid grid-cols-4 grid-rows-1 md:grid-rows-2 gap-2 w-full mt-2 relative">
+        <div className="grid grid-cols-4 grid-rows-1 md:grid-rows-2 gap-2 w-full mt-4 relative">
             {
                 state.type === undefined 
                 ?   <div className="absolute -inset-1 z-40 backdrop-blur-[2px] bg-background/5 grid place-items-center">

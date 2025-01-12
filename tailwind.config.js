@@ -17,10 +17,10 @@ module.exports = {
         popover: 'hsl(var(--BG-POPOVER))',
         foreground: 'hsl(var(--TEXT-BASE))',
         accent: 'hsl(var(--TEXT-ACCENT))',
+        solved: 'hsl(var(--TEXT-SOLVED))',
+        unsolved: 'hsl(var(--TEXT-UNSOLVED))'
       },
       textColor: {
-        solved: 'hsl(var(--TEXT-SOLVED))',
-        unsolved: 'hsl(var(--TEXT-UNSOLVED))',
         code: {
           base: 'hsl(var(--CODE-BASE))',
           keyword: 'hsl(var(--CODE-KEYWORD))',
