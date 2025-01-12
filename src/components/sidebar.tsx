@@ -17,7 +17,7 @@ export function Sidebar() {
                 className='bg-popover rounded-br-md size-12 p-1 absolute right-0 top-0 translate-x-[100%] flex justify-center items-center group hover:brightness-75 dark:border-solid dark:border-foreground/50 dark:border-1 !border-t-0 !border-l-0' 
                 onClick={()=>toggleOpen((prev)=>!prev)}>
                     <ChevronRightIcon className="w-full h-full scale-75 transition-[rotate] duration-75 fill-foreground" width={20} style={{
-                        rotate: isOpen ? '90deg' : '0deg'
+                        rotate: isOpen ? '180deg' : '0deg'
                     }} />
             </button>
             <SideBarHeading isOpen={isOpen} />
