@@ -7,6 +7,8 @@ import { ThemeProvider } from './components/contexts/theme-context';
 import { BrowserRouter } from "react-router-dom";
 import { Sidebar } from './components/sidebar';
 import { Footer } from './components/Footer';
+import { Dialog } from './components/ui/dialog';
+import { ToastContainer } from './components/ui/toast';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,6 +17,8 @@ root.render(
   <React.StrictMode>
     <ThemeProvider>
       <BrowserRouter>
+        <ToastContainer/>
+        <Dialog />
         <Sidebar />
         <main className='w-full flex-1 flex flex-col'>
           <App />

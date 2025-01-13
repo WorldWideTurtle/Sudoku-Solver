@@ -1,0 +1,17 @@
+dialog[open] #DIALOG_INTERNAL_BOUNDRY {
+    animation-name: DIALOG_INTERNAL_OPEN;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    animation-duration: .2s;
+}
+
+@keyframes DIALOG_INTERNAL_OPEN {
+    from {
+        transform: translateY(4px);
+        scale: 0.95;
+    }
+    to {
+        transform: translateY(0px);
+        scale: 1;
+    }
+}
