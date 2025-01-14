@@ -17,6 +17,11 @@
     --CODE-NUMBER: 204 100% 54%;
     --CODE-ACTION: 303 100% 64%;
     --CODE-COMMENT: 108 69% 39%;
+
+    --WARNING: 23 84% 54%;
+    --INFO: 188 85% 41%;
+    --SUCCESS: 100 70% 40%;
+    --ERROR: 0 88% 47%;
 }
 
 .dark {
@@ -38,6 +43,11 @@
     --CODE-NUMBER: 0 100% 81%;
     --CODE-ACTION: 308 62% 52%;
     --CODE-COMMENT: 108 80% 49%;
+
+    --WARNING: 23 84% 54%;
+    --INFO: 188 85% 41%;
+    --SUCCESS: 100 70% 40%;
+    --ERROR: 0 88% 47%;
 }
 
 #pink {

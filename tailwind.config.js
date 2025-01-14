@@ -18,7 +18,11 @@ module.exports = {
         foreground: 'hsl(var(--TEXT-BASE))',
         accent: 'hsl(var(--TEXT-ACCENT))',
         solved: 'hsl(var(--TEXT-SOLVED))',
-        unsolved: 'hsl(var(--TEXT-UNSOLVED))'
+        unsolved: 'hsl(var(--TEXT-UNSOLVED))',
+        info: 'hsl(var(--INFO))',
+        error: 'hsl(var(--ERROR))',
+        success: 'hsl(var(--SUCCESS))',
+        warning: 'hsl(var(--WARNING))'
       },
       textColor: {
         code: {
