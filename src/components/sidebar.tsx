@@ -9,7 +9,7 @@ export function Sidebar() {
     const [isOpen, toggleOpen] = useState(false);
 
     return (
-        <aside className="fixed bg-popover left-0 top-0 h-full w-fit flex flex-col z-50 contain-layout shadow-md shadow-foreground dark:shadow-none dark:border-r-foreground/50 dark:border-solid dark:border-r-1 transition-[transform] ease-in-out duration-100" style={{
+        <aside className="fixed bg-popover left-0 top-0 h-full w-fit flex flex-col z-30 contain-layout shadow-md shadow-foreground dark:shadow-none dark:border-r-foreground/50 dark:border-solid dark:border-r-1 transition-[transform] ease-in-out duration-100" style={{
             transform: isOpen ? 'translateX(0)' : 'translateX(-100%)'
         }}>
             <button 
