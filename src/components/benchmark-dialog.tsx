@@ -80,6 +80,7 @@ function ChoosePresetStep({state, modifyState} : FormStepProps) {
     const [loadedPresets, fetchPreset, fetching] = useSudokuPresets(useShallow((state)=>[state.loaded,state.fetchPreset, state.fetching]));
 
     useLayoutEffect(()=>{
+        if (state.selectedPreset !== -1) return;
         let total = 0;
         for (const key of Object.keys(loadedPresets)) {
             if (loadedPresets[key as PresetName] !== undefined) {
@@ -87,7 +88,7 @@ function ChoosePresetStep({state, modifyState} : FormStepProps) {
             }
             total++;
         }
-    }, [loadedPresets, modifyState])
+    }, [loadedPresets, modifyState, state.selectedPreset])
 
     function fetchData(preset: PresetName) {
         if (fetching.find(e=>e === preset) === undefined) {
