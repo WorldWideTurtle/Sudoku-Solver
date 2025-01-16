@@ -1,6 +1,6 @@
 import { useShallow } from "zustand/react/shallow"
 import { availablePresets, PresetName, toDataList, useSudokuPresets } from "./zustand/useSudokuPresets"
-import { ChangeEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ReactComponent as DownloadIcon } from "./icons/download.svg";
 import { ReactComponent as SpinnerIcon } from "./icons/spinner.svg";
 import classNames from "classnames";
@@ -30,9 +30,12 @@ export function BenchmarkDialog() {
     });
     const [page, setPage] = useState(0);
 
-    function modifyState<T>(key:keyof BenchmarkFormState, value: T) {
+    function modifyStateInternal<T>(key:keyof BenchmarkFormState, value: T) {
         setState(currentState => ({...currentState, [key]: value}))
     }
+
+    const modifyState = useCallback(modifyStateInternal, [])
+
 
     function nextPage() {
         setPage(p => Math.min(p + 1,MAX_PAGES))
@@ -77,7 +80,6 @@ function ChoosePresetStep({state, modifyState} : FormStepProps) {
     const [loadedPresets, fetchPreset, fetching] = useSudokuPresets(useShallow((state)=>[state.loaded,state.fetchPreset, state.fetching]));
 
     useLayoutEffect(()=>{
-        if (state.selectedPreset !== -1) return;
         let total = 0;
         for (const key of Object.keys(loadedPresets)) {
             if (loadedPresets[key as PresetName] !== undefined) {
@@ -85,7 +87,7 @@ function ChoosePresetStep({state, modifyState} : FormStepProps) {
             }
             total++;
         }
-    }, [loadedPresets])
+    }, [loadedPresets, modifyState])
 
     function fetchData(preset: PresetName) {
         if (fetching.find(e=>e === preset) === undefined) {
@@ -140,12 +142,12 @@ function ChooseSettingsStep({state, modifyState} : FormStepProps) {
         <div className="grid grid-cols-[auto_1fr_6ch] grid-flow-row items-center gap-2">
             <div className="grid grid-cols-subgrid col-span-3 gap-6">
                 <label htmlFor="CHUNKS">Chunk size</label>
-                <input onChange={onInput("chunkSize")} id="CHUNKS" type="range" min={100} max={2000} step={100} defaultValue={state.chunkSize}/>
+                <input name="ChunkSize" onChange={onInput("chunkSize")} id="CHUNKS" type="range" min={100} max={2000} step={100} defaultValue={state.chunkSize}/>
                 <span>{state.chunkSize}</span>
             </div>
             <div className="grid grid-cols-subgrid col-span-3 gap-6">
                 <label htmlFor="THREADS">Threads</label>
-                <input onChange={onInput("threadCount")} id="THREADS" type="range" min={1} max={navigator.hardwareConcurrency} step={1} defaultValue={state.threadCount}/>
+                <input name="ThreadCount" onChange={onInput("threadCount")} id="THREADS" type="range" min={1} max={navigator.hardwareConcurrency} step={1} defaultValue={state.threadCount}/>
                 <span>{state.threadCount}</span>
             </div>
         </div>
@@ -153,14 +155,14 @@ function ChooseSettingsStep({state, modifyState} : FormStepProps) {
 }
 
 
-function SolveStep({state, modifyState} : FormStepProps) {
+function SolveStep({state} : FormStepProps) {
     const [loadedPresets] = useSudokuPresets(useShallow((state)=>[state.loaded]));
     const [solveProgress, setProgress] = useState(0)
 
     const progressBarRef = useRef<HTMLDivElement>(null);
     const resultRef = useRef({time: 0, threadTime: 0});
 
-    function solve() {
+    useEffect(()=>{
         const name = availablePresets[state.selectedPreset].name;
         const startTime = performance.now();
         solver.solveMulti(toDataList(name, loadedPresets[name]!.data), +state.threadCount, +state.chunkSize, (e,p,b)=>{
@@ -168,12 +170,12 @@ function SolveStep({state, modifyState} : FormStepProps) {
             resultRef.current.threadTime += e.data;
             resultRef.current.time = performance.now() - startTime;
         })
-    }
-
-    useEffect(()=>{
-        solve()
 
         return () => solver.cancel();
+
+        // None of the dependencies of this useEffect CAN change after this componend mounted.
+        // If they do change, then only after the component unmounted and needs to remount.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
