@@ -12,7 +12,7 @@ module.exports = {
          "1": "1px"
       },
       colors: {
-        background: 'hsl(var(--BG-PRIMARY))',
+        background: 'hsl(var(--BG-BACKGROUND))',
         muted: 'hsl(var(--BG-FOREGROUND))',
         popover: 'hsl(var(--BG-POPOVER))',
         foreground: 'hsl(var(--TEXT-BASE))',
