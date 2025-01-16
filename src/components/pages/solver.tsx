@@ -12,6 +12,11 @@ import classNames from "classnames";
 import { SolveData, useSolverZustand } from "../zustand/useSolver";
 import { useShallow } from 'zustand/react/shallow'
 import { nSet } from "../../lib/sudoku/nSet";
+import { useDialog } from "../zustand/useDialog";
+import { useToast } from "../zustand/useToast";
+import { sudokuUtil } from "../../lib/util/sudokuUtil";
+import { PresetDisplayList } from "../preset-display-list";
+import { BenchmarkDialog } from "../benchmark-dialog";
 
 export function Solver() {
     return (
@@ -81,7 +86,44 @@ function GridDisplay() {
 }
 
 function ButtonBar() {
-    const [undo, solve, reset] = useSolverZustand(useShallow((state)=>[state.undo,state.solve,state.reset]))
+    const [undo, solve, reset, grid] = useSolverZustand(useShallow((state)=>[state.undo,state.solve,state.reset,state.grid]))
+
+    const [showDialog, closeDialog] = useDialog(useShallow((state)=>[state.showDialog,state.closeDialog]))
+
+    const showToast = useToast((state)=>state.addToast);
+
+    const dialogElement = (
+        <>
+            <h5>Hello</h5>
+            <p>This should be a dialog</p>
+            <button onClick={closeDialog}>Close this</button>
+        </>
+    )
+
+    const copyToClipboard = () => {
+        if (grid.initialState === undefined) return;
+        const sudokuString = sudokuUtil.encode(grid.initialState);
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(sudokuString);
+        }
+        showToast({type: "success", message:"Copied to Clipboard"})
+    }
+
+    const showInputDialog = () => {
+        showDialog({content:dialogElement, title:"Test"})
+    }
+
+    const showListDialog = () => {
+        showDialog({content:<PresetDisplayList/>, title:"Presets"})
+    }
+
+    const showSolveListDialog = () => {
+        showDialog({content:<PresetDisplayList solve={true}/>, title:"Solve Presets"})
+    }
+
+    const showBenchmarkDialog = () => {
+        showDialog({content:<BenchmarkDialog/>, title:"Benchmark"})
+    }
 
     return (
         <div className="flex gap-4 w-full justify-center">
@@ -94,11 +136,11 @@ function ButtonBar() {
                 <Button onClick={reset}><RestartIcon></RestartIcon></Button>
             </div>
             <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
-                <Button><DownloadIcon></DownloadIcon></Button>
-                <Button><UploadIcon></UploadIcon></Button>
-                <Button><ListIcon></ListIcon></Button>
-                <Button><ClearAllIcon></ClearAllIcon></Button>
-                <Button><BarChartIcon></BarChartIcon></Button>
+                <Button onClick={copyToClipboard}><DownloadIcon></DownloadIcon></Button>
+                <Button onClick={showInputDialog}><UploadIcon></UploadIcon></Button>
+                <Button onClick={showListDialog}><ListIcon></ListIcon></Button>
+                <Button onClick={showSolveListDialog}><ClearAllIcon></ClearAllIcon></Button>
+                <Button onClick={showBenchmarkDialog}><BarChartIcon></BarChartIcon></Button>
             </div>
         </div>
     )
