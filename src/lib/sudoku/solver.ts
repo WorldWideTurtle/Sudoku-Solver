@@ -45,13 +45,16 @@ export const solver : Solver = {
     onWorkerDone(event,id,partial) {
         this.solved = Math.min(this.solved + this.chunkSize, this.toSolve);
         this.activeCallback(event,this.solved / this.toSolve,partial);
-
         if (this.remaining.length === 0) return;
         
         this.workerPool[id].postMessage({grids:this.getChunk()})
     },
 
     async solve(list,callBack = ()=>{}) {
+        if (this.activeWorkers.length === 0) {
+            await this.initWorker()
+        }
+
         this.solvedID = 0;
         this.activeCallback = callBack;
         this.workerPool[0].postMessage({grids:list,partial:true});
@@ -62,6 +65,10 @@ export const solver : Solver = {
     },
 
     async solveMulti(list,threads,chunkSize,callBack = ()=>{}) {
+        if (this.activeWorkers.length === 0) {
+            await this.initWorker()
+        }
+        
         this.chunkSize = chunkSize;
         threads = MathUtils.clamp(threads,1,this.threads);
         this.toSolve = list.length;
