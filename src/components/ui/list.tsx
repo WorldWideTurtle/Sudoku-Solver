@@ -22,7 +22,7 @@ export function ListGroup({children, label, className} : {children?: React.React
     const [toggled, setToggled] = useState(false);
 
     return (
-        <div className="w-full flex flex-col gap-1">
+        <div role="group" className="w-full flex flex-col gap-1">
             <button className={classNames("flex gap-1 w-full",className)} onClick={()=>setToggled((prev)=>!prev)}>
                 <ChevronRightIcon className="scale-75 transition-[rotate] fill-foreground" width={20} style={{
                     rotate: toggled ? '90deg' : '0deg'
