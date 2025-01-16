@@ -1,26 +1,36 @@
 import { ReactNode } from "react";
 import { create } from "zustand";
 
+type DialogOptions = {
+    title: string
+    content: ReactNode
+}
+
 type UseDialogStore = {
-    dialogContent: ReactNode
+    options: DialogOptions
     isDialogOpen: boolean
-    showDialog: (content : ReactNode) => any
+    showDialog: (options: DialogOptions) => any
     closeDialog: () => any
 }
 
+const baseOptions : DialogOptions = {
+    title: "",
+    content: undefined
+}
+
 export const useDialog = create<UseDialogStore>((set)=>({
-    dialogContent: undefined,
+    options: baseOptions,
     isDialogOpen: false,
-    showDialog: (content: ReactNode) => {
+    showDialog: (options: DialogOptions) => {
         set({
             isDialogOpen: true,
-            dialogContent: content
+            options: options
         })
     },
     closeDialog: () => {
         set({
             isDialogOpen: false,
-            dialogContent: null
+            options: baseOptions
         })
     }
 }))
