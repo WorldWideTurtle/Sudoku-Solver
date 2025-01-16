@@ -17,6 +17,7 @@ import { useToast } from "../zustand/useToast";
 import { sudokuUtil } from "../../lib/util/sudokuUtil";
 import { PresetDisplayList } from "../preset-display-list";
 import { BenchmarkDialog } from "../benchmark-dialog";
+import { LoadSudokuDialog } from "../load-sudoku-dialog";
 
 export function Solver() {
     return (
@@ -88,17 +89,9 @@ function GridDisplay() {
 function ButtonBar() {
     const [undo, solve, reset, grid] = useSolverZustand(useShallow((state)=>[state.undo,state.solve,state.reset,state.grid]))
 
-    const [showDialog, closeDialog] = useDialog(useShallow((state)=>[state.showDialog,state.closeDialog]))
+    const [showDialog] = useDialog(useShallow((state)=>[state.showDialog,state.closeDialog]))
 
     const showToast = useToast((state)=>state.addToast);
-
-    const dialogElement = (
-        <>
-            <h5>Hello</h5>
-            <p>This should be a dialog</p>
-            <button onClick={closeDialog}>Close this</button>
-        </>
-    )
 
     const copyToClipboard = () => {
         if (grid.initialState === undefined) return;
@@ -110,7 +103,7 @@ function ButtonBar() {
     }
 
     const showInputDialog = () => {
-        showDialog({content:dialogElement, title:"Test"})
+        showDialog({content:<LoadSudokuDialog />, title:"Import"})
     }
 
     const showListDialog = () => {
