@@ -18,7 +18,7 @@ type UseToastStore = {
 export const useToast = create<UseToastStore>((set) => ({
     allToasts: [],
     addToast: (toast: Toast) => {
-        const id = performance.now();
+        const id = Math.random() * 1e12;
         toast.id = id;
 
         const timeout = setTimeout(()=>{
