@@ -29,6 +29,7 @@ type Theme = {
 type ThemeContextType = {
     theme: Theme;
     setThemeAndStore: (theme: Theme) => void;
+    cycle: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
@@ -36,7 +37,8 @@ const ThemeContext = createContext<ThemeContextType>({
         type: "dark",
         sub: "dark"
     },
-    setThemeAndStore: () => {}
+    setThemeAndStore: () => {},
+    cycle: () => {}
 });
 
 export const useTheme = () => {
@@ -70,8 +72,23 @@ export const ThemeProvider = ({ children } : {children : ReactNode}) => {
         setValue(ALL_THEMES.indexOf(theme.sub).toString());
     };
 
+    const cycle = () => {
+        const nextThemeIndex = (ALL_THEMES.findIndex(e => e === theme.sub) + 1) % ALL_THEMES.length;
+        if (nextThemeIndex < THEMES.light.length) {
+            setThemeAndStore({
+                type: "light",
+                sub: ALL_THEMES[nextThemeIndex] as LightTheme
+            })
+        } else {
+            setThemeAndStore({
+                type: "dark",
+                sub: ALL_THEMES[nextThemeIndex] as DarkTheme
+            })
+        }
+    }
+
     return (
-        <ThemeContext.Provider value={{ theme, setThemeAndStore }}>
+        <ThemeContext.Provider value={{ theme, setThemeAndStore, cycle }}>
             {children}
         </ThemeContext.Provider>
     );

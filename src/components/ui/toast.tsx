@@ -39,7 +39,7 @@ export function ToastContainer() {
     }, [toasts])
 
     return (
-        <div className="fixed right-0 bottom-0 p-6 max-w-[450px] w-full flex flex-col gap-2 z-[100]">
+        <div className="fixed right-0 bottom-0 p-6 max-w-[450px] w-full flex flex-col gap-2 z-[100] pointer-events-none">
             {visuals.map(e=>(
                 <ToastComponent key={e.id!} onClick={()=>deleteToast(e.id!)} toast={e} deleted={deleted.has(e.id!)} />
             ))}
@@ -70,7 +70,7 @@ const ToastComponent = memo(({toast, onClick, deleted} : {toast: Toast, onClick:
     const currentConfiguration = Configurations[toast.type];
 
     return (
-        <div onClick={onClick} className={classNames("w-full transition-transform duration-100 h-fit bg-muted rounded-lg overflow-hidden grid grid-cols-[8px_1fr] items-center shadow-sm shadow-foreground dark:shadow-none cursor-pointer",deleted ? (classes.slide_out + " pointer-events-none") : classes.slide_in)}>
+        <div onClick={onClick} className={classNames("w-full pointer-events-auto transition-transform duration-100 h-fit bg-muted rounded-lg overflow-hidden grid grid-cols-[8px_1fr] items-center shadow-sm shadow-foreground dark:shadow-none cursor-pointer",deleted ? (classes.slide_out + " pointer-events-none") : classes.slide_in)}>
             <div className={classNames("h-full",currentConfiguration.classNames)}></div>
             <div className="flex flex-col pl-4 p-2 dark:border-1 border-foreground/10 border-solid dark:border-l-0 rounded-r-lg">
                 <h3 className="text-lg font-bold">{Capitalize(toast.type)}</h3>
