@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/Sudoku-Solver/static/css/main.1cafe5aa.css",
+    "main.js": "/Sudoku-Solver/static/js/main.ce1aca0f.js",
+    "static/js/850.3fd12d97.chunk.js": "/Sudoku-Solver/static/js/850.3fd12d97.chunk.js",
+    "static/js/453.244ee3b7.chunk.js": "/Sudoku-Solver/static/js/453.244ee3b7.chunk.js",
+    "index.html": "/Sudoku-Solver/index.html",
+    "static/media/spinner.svg": "/Sudoku-Solver/static/media/spinner.a19e7f5749c1a11c0bbc933215700ddb.svg",
+    "static/media/list.svg": "/Sudoku-Solver/static/media/list.0bb4df627bb42b6c0deb065eb4c043a3.svg",
+    "static/media/restart.svg": "/Sudoku-Solver/static/media/restart.10e4c44af9c4f2a18967becf4c785d60.svg",
+    "static/media/copy.svg": "/Sudoku-Solver/static/media/copy.661ecd421f1b3e7880f3b0c02350f744.svg",
+    "static/media/upload.svg": "/Sudoku-Solver/static/media/upload.23cd128eb62c20d2f1f3e031c95540dc.svg",
+    "static/media/download.svg": "/Sudoku-Solver/static/media/download.a4b99e514fbe0174b7ea9b98e9b18929.svg",
+    "static/media/close.svg": "/Sudoku-Solver/static/media/close.fb4cabc3dd433946ff0b50f2c1f39c67.svg",
+    "static/media/bar-chart.svg": "/Sudoku-Solver/static/media/bar-chart.3514d6c485abdae77a2350f80c71ce86.svg",
+    "static/media/clear-all.svg": "/Sudoku-Solver/static/media/clear-all.29c5cb2bcd9583ea149e9eebe192ef16.svg",
+    "static/media/fast-forward.svg": "/Sudoku-Solver/static/media/fast-forward.2ff31a8830f8321c6cc1acfcd0127588.svg",
+    "static/media/chevron-right.svg": "/Sudoku-Solver/static/media/chevron-right.5735743d4edb127b53f51d7a9fbe69c5.svg",
+    "static/media/play.svg": "/Sudoku-Solver/static/media/play.0509d259e70e87ea3bb70bf09dbc2cbb.svg",
+    "main.1cafe5aa.css.map": "/Sudoku-Solver/static/css/main.1cafe5aa.css.map",
+    "main.ce1aca0f.js.map": "/Sudoku-Solver/static/js/main.ce1aca0f.js.map",
+    "850.3fd12d97.chunk.js.map": "/Sudoku-Solver/static/js/850.3fd12d97.chunk.js.map",
+    "453.244ee3b7.chunk.js.map": "/Sudoku-Solver/static/js/453.244ee3b7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1cafe5aa.css",
+    "static/js/main.ce1aca0f.js"
+  ]
+}

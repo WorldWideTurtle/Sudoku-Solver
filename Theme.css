@@ -1,0 +1,93 @@
+:root {
+    --BG-BACKGROUND: 0 27% 96%;
+    --BG-FOREGROUND: 0 21% 93%;
+    --BG-POPOVER: 0 15% 87%;
+    --TEXT-BASE: 0 0% 3%;
+    --TEXT-ACCENT: 165 78% 33%;
+
+    --TEXT-SOLVED: 98 88% 76%;
+    --TEXT-UNSOLVED: 0 100% 80%;
+
+    --CODE-BASE: var(--TEXT-BASE);
+    --CODE-KEYWORD: 0 100% 66%;
+    --CODE-CLASS: 236 78% 70%;
+    --CODE-OBJECT: 204 100% 54%;
+    --CODE-CLOSURES: 214 67% 24%;
+    --CODE-FUNCTION: 303 100% 64%;
+    --CODE-NUMBER: 204 100% 54%;
+    --CODE-ACTION: 303 100% 64%;
+    --CODE-COMMENT: 108 69% 39%;
+
+    --WARNING: 23 84% 54%;
+    --INFO: 188 85% 41%;
+    --SUCCESS: 100 70% 40%;
+    --ERROR: 0 88% 47%;
+}
+
+.dark {
+    --BG-BACKGROUND: 0 0% 3%;
+    --BG-FOREGROUND: 0 0% 5%;
+    --BG-POPOVER: 0 4% 9%;
+    --TEXT-BASE: 0 19% 93%;
+    --TEXT-ACCENT: 165 100% 50%;
+
+    --TEXT-SOLVED: 98 100% 57%;
+    --TEXT-UNSOLVED: 0 100% 58%;
+
+    --CODE-BASE: 0 100% 90%;
+    --CODE-KEYWORD: 0 100% 70%;
+    --CODE-CLASS: 39 100% 80%;
+    --CODE-OBJECT: 98 100% 56%;
+    --CODE-CLOSURES: 65 81% 65%;
+    --CODE-FUNCTION: 0 65% 55%;
+    --CODE-NUMBER: 0 100% 81%;
+    --CODE-ACTION: 308 62% 52%;
+    --CODE-COMMENT: 108 80% 49%;
+
+    --WARNING: 23 84% 54%;
+    --INFO: 188 85% 41%;
+    --SUCCESS: 100 70% 40%;
+    --ERROR: 0 88% 47%;
+}
+
+#pink {
+    --BG-BACKGROUND: 317 100% 93%;
+    --BG-FOREGROUND: 318 89% 89%;
+    --BG-POPOVER: 318 78% 84%;
+    --TEXT-ACCENT: 300 100% 63%;
+
+    --TEXT-SOLVED: 98 88% 76%;
+    --TEXT-UNSOLVED: 0 100% 80%;
+
+    --CODE-KEYWORD: 157 52% 22%;
+    --CODE-CLASS: 236 78% 70%;
+    --CODE-OBJECT: 204 100% 54%;
+    --CODE-CLOSURES: 214 67% 24%;
+    --CODE-FUNCTION: 303 76% 50%;
+    --CODE-NUMBER: 204 100% 54%;
+    --CODE-ACTION: 303 100% 64%;
+    --CODE-COMMENT: 108 88% 30%;
+}
+
+#purple {
+    --BG-BACKGROUND: 251 46% 69%;
+    --BG-FOREGROUND: 265 59% 75%;
+    --BG-POPOVER: 265 87% 85%;
+    --TEXT-ACCENT: 342 69% 37%;
+
+    --TEXT-SOLVED: 244 64% 63%;
+    --TEXT-UNSOLVED: 345 52% 51%;
+
+    --CODE-KEYWORD: 157 100% 80%;
+    --CODE-CLASS: 136 73% 62%;
+    --CODE-OBJECT: 6 97% 36%;
+    --CODE-CLOSURES: 214 67% 24%;
+    --CODE-FUNCTION: 303 94% 41%;
+    --CODE-NUMBER: 204 87% 28%;
+    --CODE-ACTION: 303 83% 47%;
+    --CODE-COMMENT: 341 99% 37%;
+}
+
+#green {
+    --TEXT-BASE: 108 64% 73%;
+}
