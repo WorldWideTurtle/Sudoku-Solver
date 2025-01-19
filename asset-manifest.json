@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Sudoku-Solver/static/css/main.1cafe5aa.css",
-    "main.js": "/Sudoku-Solver/static/js/main.ce1aca0f.js",
+    "main.js": "/Sudoku-Solver/static/js/main.b2d467a7.js",
     "static/js/850.3fd12d97.chunk.js": "/Sudoku-Solver/static/js/850.3fd12d97.chunk.js",
     "static/js/453.244ee3b7.chunk.js": "/Sudoku-Solver/static/js/453.244ee3b7.chunk.js",
     "index.html": "/Sudoku-Solver/index.html",
@@ -18,12 +18,12 @@
     "static/media/chevron-right.svg": "/Sudoku-Solver/static/media/chevron-right.5735743d4edb127b53f51d7a9fbe69c5.svg",
     "static/media/play.svg": "/Sudoku-Solver/static/media/play.0509d259e70e87ea3bb70bf09dbc2cbb.svg",
     "main.1cafe5aa.css.map": "/Sudoku-Solver/static/css/main.1cafe5aa.css.map",
-    "main.ce1aca0f.js.map": "/Sudoku-Solver/static/js/main.ce1aca0f.js.map",
+    "main.b2d467a7.js.map": "/Sudoku-Solver/static/js/main.b2d467a7.js.map",
     "850.3fd12d97.chunk.js.map": "/Sudoku-Solver/static/js/850.3fd12d97.chunk.js.map",
     "453.244ee3b7.chunk.js.map": "/Sudoku-Solver/static/js/453.244ee3b7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1cafe5aa.css",
-    "static/js/main.ce1aca0f.js"
+    "static/js/main.b2d467a7.js"
   ]
 }
