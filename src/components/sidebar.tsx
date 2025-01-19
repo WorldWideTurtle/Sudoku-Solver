@@ -9,7 +9,7 @@ export function Sidebar() {
     const [isOpen, toggleOpen] = useState(false);
 
     return (
-        <aside className="fixed bg-popover left-0 top-0 h-full w-fit flex flex-col z-30 contain-layout shadow-md shadow-foreground dark:shadow-none dark:border-r-foreground/50 dark:border-solid dark:border-r-1 transition-[transform] ease-in-out duration-100" style={{
+        <aside className="fixed bg-popover left-0 top-0 h-full w-fit flex flex-col z-30 contain-layout shadow-md shadow-foreground dark:shadow-none dark:border-r-foreground/50 dark:border-solid dark:border-r-1 transition-[transform] ease-in-out duration-100 mr-16" style={{
             transform: isOpen ? 'translateX(0)' : 'translateX(-100%)'
         }}>
             <button 
@@ -28,7 +28,7 @@ export function Sidebar() {
 
 function SideBarHeading({isOpen} : {isOpen: boolean}) {
     return (
-        <div className='grid grid-cols-1 grid-rows-1'>
+        <div className='grid grid-cols-1 grid-rows-1 overflow-hidden'>
             <div className='col-start-1 row-start-1'>
                 {isOpen ? <MatrixBackground /> : ''}
             </div>

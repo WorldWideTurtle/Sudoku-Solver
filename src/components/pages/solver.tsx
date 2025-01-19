@@ -7,7 +7,7 @@ import {ReactComponent as DownloadIcon} from '../icons/download.svg'
 import {ReactComponent as UploadIcon} from '../icons/upload.svg'
 import {ReactComponent as ListIcon} from '../icons/list.svg'
 import {ReactComponent as RestartIcon} from '../icons/restart.svg'
-import { memo, ReactNode, useEffect, useState } from "react";
+import { memo, ReactNode, useEffect, useLayoutEffect, useState } from "react";
 import classNames from "classnames";
 import { SolveData, useSolverZustand } from "../zustand/useSolver";
 import { useShallow } from 'zustand/react/shallow'
@@ -22,7 +22,7 @@ import { LoadSudokuDialog } from "../load-sudoku-dialog";
 export function Solver() {
     return (
         <div className="size-full grid place-items-center flex-1">
-            <div className="bg-muted w-fit p-4 shadow-md shadow-foreground/30 rounded-lg dark:shadow-none">
+            <div className="bg-muted max-w-[95vw] p-4 shadow-md shadow-foreground/30 rounded-lg dark:shadow-none">
                 <GridDisplay />
                 <hr className="m-4"/>
                 <ButtonBar />
@@ -124,16 +124,16 @@ function ButtonBar() {
     }
 
     return (
-        <div className="flex gap-4 w-full justify-center">
-            <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
+        <div className="flex md:gap-4 gap-2 w-fit mx-auto">
+            <div className="grid grid-flow-col p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
                 <Button onClick={undo}><PlayIcon className="rotate-180"></PlayIcon></Button>
                 <Button onClick={()=>{solve(false)}}><PlayIcon></PlayIcon></Button>
                 <Button onClick={()=>{solve(true)}}><FastForwardIcon></FastForwardIcon></Button>
             </div>
-            <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
+            <div className="grid grid-flow-col gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
                 <Button onClick={reset}><RestartIcon></RestartIcon></Button>
             </div>
-            <div className="flex gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
+            <div className="grid grid-flow-col gap-2 p-1 rounded-md bg-popover shadow-sm shadow-foreground dark:shadow-none">
                 <Button onClick={copyToClipboard}><DownloadIcon></DownloadIcon></Button>
                 <Button onClick={showInputDialog}><UploadIcon></UploadIcon></Button>
                 <Button onClick={showListDialog}><ListIcon></ListIcon></Button>
@@ -146,7 +146,7 @@ function ButtonBar() {
 
 function Button({children, onClick}:{children? : ReactNode, onClick?:()=>void}) {
     return (
-        <button onClick={onClick} className="size-10 *:size-full hover:*:fill-accent *:transition-[fill] *:duration-100 *:fill-foreground">{children}</button>
+        <button onClick={onClick} className="size-6 md:size-10 *:size-full hover:*:fill-accent *:transition-[fill] *:duration-100 *:fill-foreground">{children}</button>
     )
 }
 
@@ -154,7 +154,7 @@ function ResultsDisplay() {
     const [state,getSolveData, update] = useSolverZustand(useShallow((state)=>[state.state,state.getSolveData, state.update]))
     const [solveData, setSolveData] = useState<SolveData>()
 
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         if (state.type === undefined) {
             setSolveData(undefined)
         } else {
@@ -182,7 +182,7 @@ function ResultsDisplay() {
             {
                 state.type === undefined 
                 ?   <div className="absolute -inset-1 z-20 backdrop-blur-[2px] bg-background/5 grid place-items-center">
-                        <h3 className="text-xl font-bold flex items-center gap-1">Start solving to see results</h3>
+                        <h3 className="md:text-xl text-base font-bold flex items-center gap-1">Start solving to see results</h3>
                     </div> 
                 :   null
             }
@@ -198,6 +198,6 @@ function ResultsDisplay() {
 
 function ResultEntry({dataKey,dataValue,className} : {dataKey: string, dataValue?: string, className?: string}) {
     return (
-        <div className={classNames("bg-popover p-2 rounded-md flex gap-1 justify-between shadow-sm shadow-foreground dark:shadow-none *:min-w-[6ch] *:inline-block",className)}><span>{dataKey}</span><span className="text-accent text-right">{dataValue}</span></div>
+        <div className={classNames("bg-popover p-2 rounded-md flex flex-col sm:flex-row gap-1 justify-between shadow-sm shadow-foreground dark:shadow-none *:min-w-[6ch] *:inline-block *:text-sm md:text-base",className)}><span>{dataKey}</span><span className="text-accent sm:text-right">{dataValue}</span></div>
     )
 }
