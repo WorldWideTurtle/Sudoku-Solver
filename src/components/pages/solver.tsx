@@ -7,7 +7,7 @@ import {ReactComponent as DownloadIcon} from '../icons/download.svg'
 import {ReactComponent as UploadIcon} from '../icons/upload.svg'
 import {ReactComponent as ListIcon} from '../icons/list.svg'
 import {ReactComponent as RestartIcon} from '../icons/restart.svg'
-import { ReactNode, useEffect, useState } from "react";
+import { memo, ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
 import { SolveData, useSolverZustand } from "../zustand/useSolver";
 import { useShallow } from 'zustand/react/shallow'
@@ -32,9 +32,8 @@ export function Solver() {
     );
 }
 
-function NumberCell({row, column, grid} : CellItemProps) {
-    if (grid.initialState === undefined) return null;
-    const value = grid.getValueAt(row,column);
+
+function NumberCell({value} : CellItemProps) {
     return (
         <span className={`flex size-10 items-center justify-center text-lg ${value !== 0 ? "bg-solved dark:text-solved dark:!bg-transparent" : "bg-unsolved dark:text-unsolved dark:!bg-transparent"}`}>
             {value}
@@ -42,28 +41,34 @@ function NumberCell({row, column, grid} : CellItemProps) {
     )
 }
 
+const MemoNumberCell = memo(NumberCell)
+
 const AllValidNumbers = [1,2,3,4,5,6,7,8,9]
 
-function EntropyCell({row, column, grid} : CellItemProps) {
-    const entropy = grid.getEntropy(row,column);
-    const size = nSet.size(entropy);
+function EntropyCell({hovered, value} : CellItemProps) {
+    const size = nSet.size(value);
     return (
-        <div className={`size-10 group grid place-items-center grid-cols-1 grid-rows-1 ${size === 0 ? "bg-solved dark:*:text-solved dark:!bg-transparent" : "bg-unsolved dark:*:text-unsolved dark:!bg-transparent"}`}>
-            {size > 0 ? <div className="group-hover:grid p-[2px] grid-cols-3 grid-rows-3 size-full hidden col-start-1 row-start-1">
-                {AllValidNumbers.map(e=><span className="text-xs font-mono" key={e}>{nSet.has(entropy,e) ? e : ""}</span>)}
-            </div> : ""}
-            <span className={`flex size-full items-center justify-center text-lg col-start-1 row-start-1 ${size > 0 ? "group-hover:hidden" : ""}`}>
-                {size}
+        <div className={`size-10 ${size === 0 ? "bg-solved dark:*:text-solved dark:!bg-transparent" : "bg-unsolved dark:*:text-unsolved dark:!bg-transparent"}`}>
+            {(hovered && size > 0) ? 
+            <div className="grid p-[2px] grid-cols-3 grid-rows-3 size-full">
+                {AllValidNumbers.map(e=><span className="text-xs font-mono" key={e}>{nSet.has(value,e) ? e : ""}</span>)}
+            </div>
+            :
+            <span className="flex size-full items-center justify-center text-lg">
+                {size > 0 ? size : ""}
             </span>
+            }
         </div>
     )
 }
+
+const MemoEntropyCell = memo(EntropyCell)
 
 function Base() {
     return (
         <div className="flex flex-col items-center gap-1">
             <h2 className="text-2xl font-bold">Sudoku</h2>
-            <SudokuGrid CellComponent={NumberCell} />
+            <SudokuGrid getValue={(grid, index) => grid.getValueAtIndex(index)} CellComponent={MemoNumberCell} />
         </div>
     )
 }
@@ -72,7 +77,7 @@ function Entropy() {
     return (
         <div className="flex-col items-center gap-1 hidden md:flex">
             <h2 className="text-2xl font-bold">Entropy</h2>
-            <SudokuGrid CellComponent={EntropyCell} />
+            <SudokuGrid getValue={(grid, index) => grid.getEntropy(~~(index / 9), index % 9)} hover CellComponent={MemoEntropyCell} />
         </div>
     )
 }
