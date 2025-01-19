@@ -178,8 +178,8 @@ function ResultsDisplay() {
         <div className="grid grid-cols-4 grid-rows-1 md:grid-rows-2 gap-2 w-full mt-4 relative">
             {
                 state.type === undefined 
-                ?   <div className="absolute -inset-1 z-40 backdrop-blur-[2px] bg-background/5 grid place-items-center">
-                        <h3 className="text-xl font-bold flex items-center gap-1">Run <FastForwardIcon className="fill-foreground" /> once for results</h3>
+                ?   <div className="absolute -inset-1 z-20 backdrop-blur-[2px] bg-background/5 grid place-items-center">
+                        <h3 className="text-xl font-bold flex items-center gap-1">Start solving to see results</h3>
                     </div> 
                 :   null
             }
