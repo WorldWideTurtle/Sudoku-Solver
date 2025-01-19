@@ -1,4 +1,4 @@
-import { ChangeEvent, ClipboardEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { sudokuUtil } from "../lib/util/sudokuUtil";
 import { useDialog } from "./zustand/useDialog";
 import { useToast } from "./zustand/useToast";

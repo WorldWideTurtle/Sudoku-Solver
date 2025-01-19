@@ -55,7 +55,7 @@ function EntropyCell({hovered, value} : CellItemProps) {
             </div>
             :
             <span className="flex size-full items-center justify-center text-lg">
-                {size > 0 ? size : ""}
+                {size}
             </span>
             }
         </div>
