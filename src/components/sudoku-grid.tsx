@@ -45,7 +45,7 @@ export function SudokuGrid({CellComponent, hover, getValue} : SudokuGridProps) {
         window.addEventListener("resize",onResize);
 
         return () => window.removeEventListener("resize",onResize);
-    }, [])
+    }, [hover])
 
     const objects = [];
     for (let i = 0; i < 9; i++) {
@@ -66,7 +66,7 @@ export function SudokuGrid({CellComponent, hover, getValue} : SudokuGridProps) {
     }
 
     return (
-        <div ref={baseElementRef} className="grid grid-cols-9 grid-rows-9 contain-layout contain-style contain-paint" onMouseMove={hover ? onMouseMove : undefined} onMouseOut={e=>setHovered(-1)}>
+        <div ref={baseElementRef} className="grid grid-cols-9 grid-rows-9 contain-layout contain-style contain-paint" onMouseMove={hover ? onMouseMove : undefined} onMouseLeave={e=>setHovered(-1)}>
             {objects}
         </div>
     );

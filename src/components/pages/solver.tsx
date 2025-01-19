@@ -160,6 +160,9 @@ function ResultsDisplay() {
         } else {
             setSolveData(getSolveData())
         }
+        // No other depency can change without update changing, so 
+        // no other depency needs to be listed.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [update])
 
     const formatTimeValue = () => {
