@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from './components/contexts/theme-context';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { Sidebar } from './components/sidebar';
 import { Footer } from './components/Footer';
 import { Dialog } from './components/ui/dialog';
@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <BrowserRouter>
+      <HashRouter>
         <ToastContainer/>
         <Dialog />
         <Sidebar />
@@ -24,7 +24,7 @@ root.render(
           <App />
         </main>
         <Footer />
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   </React.StrictMode>
 );

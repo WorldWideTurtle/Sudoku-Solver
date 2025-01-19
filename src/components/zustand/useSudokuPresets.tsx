@@ -12,7 +12,7 @@ const basePresest = {
 export const availablePresets : AvailablePreset[] =  [
     {
         name: "Standard", 
-        source: "/baseList.json", 
+        source: "baseList.json", 
         size: 13, 
         description: "A list of a few generated Sudokus of varying difficulty, along with the 95 'impossible' rated sudokus from the MagicTour forum.",
         displayProcessor: standardDisplayer, 
@@ -20,7 +20,7 @@ export const availablePresets : AvailablePreset[] =  [
     },
     {
         name: "17-Clue", 
-        source: "/17-clue.json", 
+        source: "17-clue.json", 
         size: 4128, 
         description: "A list of all (49158) 17-Clue Sudoku puzzles. Used to benchmark the hidden singles technique.",
         displayProcessor: standardDisplayer, 
@@ -28,7 +28,7 @@ export const availablePresets : AvailablePreset[] =  [
     },
     {
         name: "kaggle", 
-        source: "/kaggle.json", 
+        source: "kaggle.json", 
         size: 8497, 
         description: "A list of 100000 rather easy puzzles. Used for benchmarking the initialization of boards.",
         displayProcessor: standardDisplayer, 
@@ -36,7 +36,7 @@ export const availablePresets : AvailablePreset[] =  [
     },
     {
         name: "forum_hardest_1106", 
-        source: "/forum_hardest_1106.json", 
+        source: "forum_hardest_1106.json", 
         size: 32, 
         description: "A list of 375 hardest puzzles for backtracking solvers. Used for benchmarking the backtracking.",
         displayProcessor: standardDisplayer, 
