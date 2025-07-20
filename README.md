@@ -1,1 +1,1 @@
-A high performance Sudoku-Solver written in Javascript.
+A high performance Sudoku-Solver written in Javascript. Made with Create-React-App
