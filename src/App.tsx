@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import { Solver } from './components/pages/solver';
 import { RulesPage } from './components/pages/rules';
 import { NGridPage } from './components/pages/nGrid-page';

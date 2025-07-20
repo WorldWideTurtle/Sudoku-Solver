@@ -1,8 +1,8 @@
 import { useShallow } from "zustand/react/shallow"
-import { availablePresets, PresetName, toDataList, useSudokuPresets } from "./zustand/useSudokuPresets"
-import { ChangeEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { ReactComponent as DownloadIcon } from "./icons/download.svg";
-import { ReactComponent as SpinnerIcon } from "./icons/spinner.svg";
+import { availablePresets, type PresetName, toDataList, useSudokuPresets } from "./zustand/useSudokuPresets"
+import { type ChangeEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import DownloadIcon from "./icons/download.svg?react";
+import SpinnerIcon from "./icons/spinner.svg?react";
 import classNames from "classnames";
 import { solver } from "../lib/sudoku/solver";
 
@@ -57,7 +57,7 @@ export function BenchmarkDialog() {
                 {page > 0 && 
                     <button 
                         type="button" 
-                        className="dark:border-1 col-start-1 float-left border-foreground/10 border-solid px-3 py-2 rounded-sm hover:bg-popover transition-[background-color] duration-100" 
+                        className="dark:border col-start-1 float-left border-foreground/10 border-solid px-3 py-2 rounded-sm hover:bg-popover transition-[background-color] duration-100" 
                         onClick={prevPage}>
                             Previous
                     </button>
@@ -65,7 +65,7 @@ export function BenchmarkDialog() {
                 {page < MAX_PAGES && 
                     <button 
                         type="button" 
-                        className={classNames("dark:border-1 col-start-2 float-right border-foreground/10 text-background bg-foreground border-solid px-3 py-2 rounded-sm transition-[background-color] duration-100",state.selectedPreset === -1 ? "bg-transparent text-foreground hover:bg-popover" : "hover:bg-foreground/90")} 
+                        className={classNames("dark:border col-start-2 float-right border-foreground/10 text-background bg-foreground border-solid px-3 py-2 rounded-sm transition-[background-color] duration-100",state.selectedPreset === -1 ? "bg-transparent text-foreground hover:bg-popover" : "hover:bg-foreground/90")} 
                         disabled={state.selectedPreset === -1} 
                         onClick={nextPage}>
                             {PAGE_NEXT_TEXT[page]}
@@ -111,13 +111,13 @@ function ChoosePresetStep({state, modifyState} : FormStepProps) {
                 const isLoaded = loadedPresets[e.name] !== undefined;
                 return (
                     <div key={i} className="relative">
-                        <button type="button" aria-checked={isSelected} role="radio" className={classNames("bg-popover/40 hover:bg-popover transition-[background-color] duration-100 shadow-sm shadow-foreground dark:shadow-none rounded-sm cursor-pointer p-2 grid grid-cols-[1fr_auto] gap-8 max-w-[450px] text-left dark:border-1 border-solid border-foreground/10",!isLoaded && "opacity-55 pointer-events-none")} onClick={()=>trySelect(i)}>
+                        <button type="button" aria-checked={isSelected} role="radio" className={classNames("bg-popover/40 hover:bg-popover transition-[background-color] duration-100 shadow-sm shadow-foreground dark:shadow-none rounded-sm cursor-pointer p-2 grid grid-cols-[1fr_auto] gap-8 max-w-[450px] text-left dark:border border-solid border-foreground/10",!isLoaded && "opacity-55 pointer-events-none")} onClick={()=>trySelect(i)}>
                             <div>
                                 <h3 className="font-bold">{e.name}</h3>
                                 <p className="opacity-70 text-sm">{e.description}</p>
                             </div>
                             <div className="place-items-center h-full grid size-4 mr-3">
-                                <div className={classNames("rounded-full border-foreground border-1 border-solid size-4",isSelected && "bg-accent", !isLoaded && "hidden")}></div>
+                                <div className={classNames("rounded-full border-foreground border border-solid size-4",isSelected && "bg-accent", !isLoaded && "hidden")}></div>
                             </div>
                         </button>
                         {
@@ -166,7 +166,7 @@ function SolveStep({state} : FormStepProps) {
     useEffect(()=>{
         const name = availablePresets[state.selectedPreset].name;
         const startTime = performance.now();
-        solver.solveMulti(toDataList(name, loadedPresets[name]!.data), +state.threadCount, +state.chunkSize, (e,p,b)=>{
+        solver.solveMulti(toDataList(name, loadedPresets[name]!.data), +state.threadCount, +state.chunkSize, (e,p,_)=>{
             setProgress(p)
             resultRef.current.threadTime += e.data;
             resultRef.current.time = performance.now() - startTime;

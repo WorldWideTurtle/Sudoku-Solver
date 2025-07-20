@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { type ReactNode } from "react";
+import { Link } from "react-router";
 import "./article-page.css"
 
 export function ArticlePage({children} : {children?: ReactNode}) {

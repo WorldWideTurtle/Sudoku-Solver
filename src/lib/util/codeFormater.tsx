@@ -1,4 +1,4 @@
-import { CodeLineData } from "../../components/code-block";
+import { type CodeLineData } from "../../components/code-block";
 
 const keyWords = ["let","const","var","new"];
 const classes = ["console"];

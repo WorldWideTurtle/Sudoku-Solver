@@ -1,5 +1,5 @@
 import { formatCodeLine } from "../lib/util/codeFormater";
-import {ReactComponent as CopyIcon} from "./icons/copy.svg"
+import CopyIcon from "./icons/copy.svg?react"
 import './code-block.css';
 
 export type CodeLineData = {

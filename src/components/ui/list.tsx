@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {ReactComponent as ChevronRightIcon} from '../icons/chevron-right.svg'
+import ChevronRightIcon from '../icons/chevron-right.svg?react'
 import classNames from "classnames";
 
 export function List({children, className} : {children?: React.ReactNode, className?: string}) {
@@ -12,7 +12,7 @@ export function List({children, className} : {children?: React.ReactNode, classN
 
 export function ListItem({children, className, isActive} : {children?: React.ReactNode, className?: string, isActive?: boolean}) {
     return (
-        <li className={classNames("w-full border-transparent hover:bg-accent/30 hover:border-accent/30 dark:bg-transparent dark:hover:bg-transparent border-1 rounded-md",className,isActive ? "bg-accent/30 dark:border-accent/30" : "")}>
+        <li className={classNames("w-full border-transparent hover:bg-accent/30 hover:border-accent/30 dark:bg-transparent dark:hover:bg-transparent border rounded-md",className,isActive ? "bg-accent/30 dark:border-accent/30" : "")}>
             {children}
         </li>
     );

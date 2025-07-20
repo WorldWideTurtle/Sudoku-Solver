@@ -21,7 +21,7 @@ export const useToast = create<UseToastStore>((set) => ({
         const id = Math.random() * 1e12;
         toast.id = id;
 
-        const timeout = setTimeout(()=>{
+        setTimeout(()=>{
             set((state)=>({
                 allToasts: state.allToasts.filter(toastElement=>toastElement.id!==id)
             }))

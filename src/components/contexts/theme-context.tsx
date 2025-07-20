@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useLayoutEffect, useState } from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const THEMES = {

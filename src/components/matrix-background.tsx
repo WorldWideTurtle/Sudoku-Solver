@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 
 function getNewText() {
     return Array.from({length: 20}, ()=>Array.from({length: 8}, ()=>~~(Math.random() + 0.5)).join('')).join(' ');

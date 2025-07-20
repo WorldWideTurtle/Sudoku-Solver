@@ -1,15 +1,15 @@
-import { CellItemProps, SudokuGrid } from "../sudoku-grid";
-import {ReactComponent as BarChartIcon} from '../icons/bar-chart.svg'
-import {ReactComponent as PlayIcon} from '../icons/play.svg'
-import {ReactComponent as FastForwardIcon} from '../icons/fast-forward.svg'
-import {ReactComponent as ClearAllIcon} from '../icons/clear-all.svg'
-import {ReactComponent as DownloadIcon} from '../icons/download.svg'
-import {ReactComponent as UploadIcon} from '../icons/upload.svg'
-import {ReactComponent as ListIcon} from '../icons/list.svg'
-import {ReactComponent as RestartIcon} from '../icons/restart.svg'
-import { memo, ReactNode, useEffect, useLayoutEffect, useState } from "react";
+import { type CellItemProps, SudokuGrid } from "../sudoku-grid";
+import BarChartIcon from '../icons/bar-chart.svg?react'
+import PlayIcon from '../icons/play.svg?react'
+import FastForwardIcon from '../icons/fast-forward.svg?react'
+import ClearAllIcon from '../icons/clear-all.svg?react'
+import DownloadIcon from '../icons/download.svg?react'
+import UploadIcon from '../icons/upload.svg?react'
+import ListIcon from '../icons/list.svg?react'
+import RestartIcon from '../icons/restart.svg?react'
+import { memo, type ReactNode, useLayoutEffect, useState } from "react";
 import classNames from "classnames";
-import { SolveData, useSolverZustand } from "../zustand/useSolver";
+import { type SolveData, useSolverZustand } from "../zustand/useSolver";
 import { useShallow } from 'zustand/react/shallow'
 import { nSet } from "../../lib/sudoku/nSet";
 import { useDialog } from "../zustand/useDialog";
@@ -35,7 +35,7 @@ export function Solver() {
 
 function NumberCell({value} : CellItemProps) {
     return (
-        <span className={`flex size-10 items-center justify-center text-lg ${value !== 0 ? "bg-solved dark:text-solved dark:!bg-transparent" : "bg-unsolved dark:text-unsolved dark:!bg-transparent"}`}>
+        <span className={`flex size-10 items-center justify-center text-lg ${value !== 0 ? "bg-solved dark:text-solved dark:bg-transparent!" : "bg-unsolved dark:text-unsolved dark:bg-transparent!"}`}>
             {value}
         </span>
     )
@@ -48,7 +48,7 @@ const AllValidNumbers = [1,2,3,4,5,6,7,8,9]
 function EntropyCell({hovered, value} : CellItemProps) {
     const size = nSet.size(value);
     return (
-        <div className={`size-10 ${size === 0 ? "bg-solved dark:*:text-solved dark:!bg-transparent" : "bg-unsolved dark:*:text-unsolved dark:!bg-transparent"}`}>
+        <div className={`size-10 ${size === 0 ? "bg-solved dark:*:text-solved dark:bg-transparent!" : "bg-unsolved dark:*:text-unsolved dark:bg-transparent!"}`}>
             {(hovered && size > 0) ? 
             <div className="grid p-[2px] grid-cols-3 grid-rows-3 size-full">
                 {AllValidNumbers.map(e=><span className="text-xs font-mono" key={e}>{nSet.has(value,e) ? e : ""}</span>)}

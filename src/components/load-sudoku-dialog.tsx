@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react"
+import { type ChangeEvent, type FormEvent, useState } from "react"
 import { sudokuUtil } from "../lib/util/sudokuUtil";
 import { useDialog } from "./zustand/useDialog";
 import { useToast } from "./zustand/useToast";
@@ -66,7 +66,7 @@ export function LoadSudokuDialog() {
             <div className="flex flex-col gap-1">
                 <label htmlFor="SUDOKU_INPUT">Write the code</label>
                 <p className="opacity-70 text-sm max-w-[450px]">You may only use numbers, represent empty cells as either 0 or as a ".", and go from left to right, row by row.</p>
-                <input name="input" onChange={onInput} defaultValue={input} id="SUDOKU_INPUT" autoComplete="off" className="rounded-md p-2 shadow-sm shadow-foreground dark:shadow-none dark:border-1 border-solid border-foreground/10 bg-popover placeholder:text-foreground/40" type="text" placeholder="0214000..." required/>
+                <input name="input" onChange={onInput} defaultValue={input} id="SUDOKU_INPUT" autoComplete="off" className="rounded-md p-2 shadow-sm shadow-foreground dark:shadow-none dark:border border-solid border-foreground/10 bg-popover placeholder:text-foreground/40" type="text" placeholder="0214000..." required/>
             </div>
             {errors.length ? 
                 <ul>
@@ -77,7 +77,7 @@ export function LoadSudokuDialog() {
             : ""}
             <hr className="border-popover my-2"/>
             <div className="flex flex-row-reverse">
-                <button disabled={input.length === 0} className={classNames("bg-foreground text-background rounded-sm dark:border-1 border-foreground/10 border-solid p-2 hover:bg-foreground/80 transition-[background] duration-75", (input.length === 0) && "opacity-65 pointer-events-none")}>Submit</button>
+                <button disabled={input.length === 0} className={classNames("bg-foreground text-background rounded-sm dark:border border-foreground/10 border-solid p-2 hover:bg-foreground/80 transition-[background] duration-75", (input.length === 0) && "opacity-65 pointer-events-none")}>Submit</button>
             </div>
         </form>     
     )

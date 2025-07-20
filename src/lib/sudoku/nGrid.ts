@@ -1,4 +1,4 @@
-import { NSet, nSet } from "./nSet";
+import { type NSet, nSet } from "./nSet";
 
 const baseLowest = ((0x1FF<<9)|(10<<4)|10);
 

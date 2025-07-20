@@ -1,5 +1,5 @@
 import { useShallow } from "zustand/react/shallow"
-import { PresetName, toDataList, toDisplayList, useSudokuPresets } from "./zustand/useSudokuPresets"
+import { type PresetName, toDataList, toDisplayList, useSudokuPresets } from "./zustand/useSudokuPresets"
 import { createRef, useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react"
 import { useSolverZustand } from "./zustand/useSolver"
 import { useDialog } from "./zustand/useDialog"
@@ -27,7 +27,7 @@ export function PresetDisplayList({solve} : {solve? : boolean}) {
     }, [data])
 
     const objectRefs = useMemo(()=>{
-        return new Array(getListData().length).fill(0).map(e=>createRef<HTMLLIElement>())
+        return new Array(getListData().length).fill(0).map(_=>createRef<HTMLLIElement>())
     }, [data])
 
     useLayoutEffect(()=>{
@@ -72,7 +72,7 @@ export function PresetDisplayList({solve} : {solve? : boolean}) {
                             ref={objectRefs[total++]} 
                             className={classNames("pl-2 hover:bg-foreground/10 w-full cursor-pointer",solve ? "flex justify-between" : "")} 
                             key={i} 
-                            onClick={()=>onClickCallback(inner[1])}>
+                            onClick={_=>onClickCallback(inner[1])}>
                                 {inner[0]}
                                 {solve && <span>Solving</span>}
                         </li>
@@ -86,7 +86,7 @@ export function PresetDisplayList({solve} : {solve? : boolean}) {
 function PresetDisplaySkelleton() {
     return (
         <div className={listClasses}>
-            {new Array(8).fill(0).map((e,i)=>(
+            {new Array(8).fill(0).map((_,i)=>(
                 <div key={i} className="w-full text-transparent select-none bg-foreground/10 animate-pulse">Loading</div>
             ))}
         </div>

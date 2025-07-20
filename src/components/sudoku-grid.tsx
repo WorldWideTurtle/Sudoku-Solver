@@ -1,4 +1,4 @@
-import { ComponentType, MouseEvent, useEffect, useRef, useState } from "react";
+import { type ComponentType, type MouseEvent, useEffect, useRef, useState } from "react";
 import { nGrid } from "../lib/sudoku/nGrid";
 import { useSolverZustand } from "./zustand/useSolver";
 import { useShallow } from "zustand/react/shallow";
@@ -24,7 +24,7 @@ export function SudokuGrid({CellComponent, hover, getValue} : SudokuGridProps) {
     const [grid] = useSolverZustand(useShallow((state)=>[state.grid,state.update]))
     const [hovered, setHovered] = useState(-1);
     const baseElementRef = useRef<HTMLDivElement>(null);
-    const gridSizeProperties = useRef<GridSizeProperties>();
+    const gridSizeProperties = useRef<GridSizeProperties>(null);
 
     useEffect(()=>{
         if (!hover) return;
@@ -66,7 +66,7 @@ export function SudokuGrid({CellComponent, hover, getValue} : SudokuGridProps) {
     }
 
     return (
-        <div ref={baseElementRef} className="grid grid-cols-9 grid-rows-9 contain-layout contain-style contain-paint" onMouseMove={hover ? onMouseMove : undefined} onMouseLeave={e=>setHovered(-1)}>
+        <div ref={baseElementRef} className="grid grid-cols-9 grid-rows-9 contain-layout contain-style contain-paint" onMouseMove={hover ? onMouseMove : undefined} onMouseLeave={_=>setHovered(-1)}>
             {objects}
         </div>
     );

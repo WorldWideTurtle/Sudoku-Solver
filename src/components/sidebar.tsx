@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import {ReactComponent as ChevronRightIcon} from './icons/chevron-right.svg'
+import ChevronRightIcon from './icons/chevron-right.svg?react'
 import { MatrixBackground } from './matrix-background';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { List, ListGroup, ListItem } from './ui/list';
 import { LINKS } from '../App';
 
@@ -30,12 +30,12 @@ export function Sidebar() {
     }, [isOpen])
 
     return (
-        <aside ref={elementRef} className="fixed bg-popover left-0 top-0 h-full w-fit flex flex-col z-30 contain-layout shadow-md shadow-foreground dark:shadow-none dark:border-r-foreground/50 dark:border-solid dark:border-r-1 transition-[transform] ease-in-out duration-100 mr-16" style={{
+        <aside ref={elementRef} className="fixed bg-popover left-0 top-0 h-full w-fit flex flex-col z-30 contain-layout shadow-md shadow-foreground dark:shadow-none dark:border-r-foreground/50 dark:border-solid dark:border-r transition-[transform] ease-in-out duration-100 mr-16" style={{
             transform: isOpen ? 'translateX(0)' : 'translateX(-100%)'
         }}>
             <button 
                 title="Toggle sidebar" 
-                className='bg-popover rounded-br-md size-12 p-1 absolute right-0 top-0 translate-x-[100%] flex justify-center items-center group hover:brightness-75 dark:border-solid dark:border-foreground/50 dark:border-1 !border-t-0 !border-l-0' 
+                className='bg-popover rounded-br-md size-12 p-1 absolute right-0 top-0 translate-x-full flex justify-center items-center group hover:brightness-75 dark:border-solid dark:border-foreground/50 dark:border border-t-0! border-l-0!' 
                 onClick={toggleOpen}>
                     <ChevronRightIcon className="w-full h-full scale-75 transition-[rotate] duration-75 fill-foreground" width={20} style={{
                         rotate: isOpen ? '180deg' : '0deg'

@@ -1,6 +1,122 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where(#dark, #dark *));
+@custom-variant dark (&:where(.dark, .dark *));
+
+@custom-variant light (&:where(#light, #light *));
+@custom-variant light (&:where(.light, .light *));
+
+@custom-variant pink (&:where(#pink, #pink *));
+
+@custom-variant purple (&:where(#purple, #purple *));
+
+@custom-variant green (&:where(#green, #green *));
+
+@theme {
+  --color-*: initial;
+
+  --color-background: oklch(96.579% 0.00642 16.328);
+  --color-muted: oklch(94.028% 0.00864 16.631);
+  --color-popover: oklch(89.327% 0.01098 16.854);
+
+  --color-foreground: oklch(13.441% 0.00002 271.152);
+  --color-accent: oklch(60.034% 0.11564 169.576);
+
+  --color-solved: oklch(90.903% 0.15536 135.127);
+  --color-unsolved: oklch(78.843% 0.12259 20.148);
+
+  --color-info: oklch(68.709% 0.17083 47.86);
+  --color-error: oklch(67.814% 0.11602 211.946);
+  --color-success: oklch(66.409% 0.19252 138.034);
+  --color-warning: oklch(57.471% 0.23091 28.759);
+
+  --color-code-base: var(--color-foreground);
+  --color-code-keyword: oklch(67.862% 0.20948 24.641);
+  --color-code-class: oklch(68.819% 0.17437 246.519);
+  --color-code-object: oklch(68.819% 0.17437 246.519);
+  --color-code-closures: oklch(34.153% 0.09064 256.072);
+  --color-code-function: oklch(72.398% 0.28015 330.148);
+  --color-code-number: oklch(68.819% 0.17437 246.519);
+  --color-code-action: oklch(72.398% 0.28015 330.148);
+  --color-code-comment: oklch(64.391% 0.19517 140.478);
+}
+
+@layer theme {
+  :root, :host {
+    @variant dark {
+        --color-background: oklch(13.441% 0.00002 271.152);
+        --color-muted: oklch(15.907% 0.00002 271.152);
+        --color-popover: oklch(20.252% 0.00319 17.025);
+
+        --color-foreground: oklch(94.251% 0.00755 16.511);
+        --color-accent: oklch(88.71% 0.18282 166.576);
+
+        --color-solved: oklch(88.684% 0.26349 137.779);
+        --color-unsolved: oklch(64.21% 0.2435 27.616);
+
+        --color-info: oklch(68.709% 0.17083 47.86);
+        --color-error: oklch(67.814% 0.11602 211.946);
+        --color-success: oklch(66.409% 0.19252 138.034);
+        --color-warning: oklch(57.471% 0.23091 28.759);
+
+        --color-code-base: oklch(88.968% 0.05796 18.205);
+        --color-code-keyword: oklch(70.442% 0.18718 23.165);
+        --color-code-class: oklab(90.688% 0.01256 0.09141);
+        --color-code-object: oklch(88.564% 0.26604 137.95);
+        --color-code-closures: oklch(91.321% 0.16633 113.699);
+        --color-code-function: oklch(59.457% 0.186 24.795);
+        --color-code-number: oklch(79.775% 0.11608 19.916);
+        --color-code-action: oklch(61.494% 0.2304 333.977);
+        --color-code-comment: oklch(79.604% 0.2543 140.871);
+    }
+
+    @variant pink {
+        --color-background: oklch(92.894% 0.05215 335.837);
+        --color-muted: oklch(89.284% 0.07221 337.247);
+        --color-popover: oklch(84.852% 0.09364 337.629);
+
+        --color-accent: oklch(72.522% 0.29113 328.06);
+
+        --color-solved: oklch(90.903% 0.15536 135.127);
+        --color-unsolved: oklch(78.843% 0.12259 20.148);
+
+        --color-code-keyword: oklch(40.514% 0.07092 164.56);
+        --color-code-class: oklch(64.253% 0.16391 277.631);
+        --color-code-object: oklch(68.819% 0.17437 246.519);
+        --color-code-closures: oklch(34.153% 0.09064 256.072);
+        --color-code-function: oklch(63.838% 0.27658 330.518);
+        --color-code-number: oklch(68.819% 0.17437 246.519);
+        --color-code-action: oklch(72.398% 0.28015 330.148);
+        --color-code-comment: oklch(57.109% 0.18399 140.972);
+    }
+
+    @variant purple {
+        --color-background: oklch(67.949% 0.10542 291.616);
+        --color-muted: oklch(74.141% 0.11066 302.755);
+        --color-popover: oklch(82.622% 0.09683 303.436);
+
+        --color-accent: oklch(46.379% 0.16489 9.762);
+
+        --color-solved: oklch(57.388% 0.17883 282.165);
+        --color-unsolved: oklch(56.718% 0.16646 8.862);
+
+        --color-code-keyword: oklch(92.686% 0.11079 167.53);
+        --color-code-class: oklch(82.091% 0.18886 149.167);
+        --color-code-object: oklch(49.265% 0.19239 30.507);
+        --color-code-closures: oklch(34.153% 0.09064 256.072);
+        --color-code-function: oklch(58.606% 0.26365 331.053);
+        --color-code-number: oklch(43.157% 0.10571 245.669);
+        --color-code-action: oklch(62.356% 0.27577 330.848);
+        --color-code-comment: oklch(50.544% 0.20174 15.623);
+    }
+
+    @variant green {
+        --color-foreground: oklch(85.747% 0.13706 139.4);
+    }
+  }
+}
+
+ 
 
 #root {
   width: 100%;
@@ -8,3 +124,14 @@
   display: flex;
   flex-direction: column;
 }
+
+/* 
+--CODE-BASE: var(--TEXT-BASE);
+    --CODE-KEYWORD: oklch(67.862% 0.20948 24.641);
+    --CODE-CLASS: oklch(64.253% 0.16391 277.631);
+    --CODE-OBJECT: oklch(68.819% 0.17437 246.519);
+    --CODE-CLOSURES: oklch(34.153% 0.09064 256.072);
+    --CODE-FUNCTION: oklch(72.398% 0.28015 330.148);
+    --CODE-NUMBER: oklch(68.819% 0.17437 246.519);
+    --CODE-ACTION: oklch(72.398% 0.28015 330.148);
+    --CODE-COMMENT: oklch(64.391% 0.19517 140.478); */
